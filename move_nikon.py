@@ -8,17 +8,11 @@ assert os.path.exists(user_input), "I did not find the directory at, "+str(user_
 print("Hooray we found your directory!")
 
 #ask the user how many positions are on the device and create that number of BF and fluor folders
-position_input = input('How many positions do you have? \n')
-num_pos = int(position_input)
-for pos in num_pos:
-    BF_path = os.path.join('BF',num_pos+1)
-    fluor_path = os.path.join('Fluor',num_pos+1)
 
-wave_names = ['w1BF', 'w2460 500 EGFP']
-
-for file in user_input:
+for file in os.listdir(user_input):
     file_splits = file.split('_')
-    movie_new_dir = os.path.join(user_input, file_splits[1], ' ', file_splits[2])
+    path_name = file_splits[1] + ' ' + file_splits[2]
+    movie_new_dir = os.path.join(user_input, path_name)
     if not os.path.exists(movie_new_dir):
         os.mkdir(movie_new_dir)
     shutil.move(os.path.join(user_input,file), movie_new_dir)
